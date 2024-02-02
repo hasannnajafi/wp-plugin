@@ -1,14 +1,14 @@
 <?php
  /*
- * Plugin Name: YOUR PLUGIN NAME
+ * Plugin Name: Featured Product carousel
  * Description: Featured Product to Display the "Featured Product" carousel using a [featured_products_carousels] shortcode.
  */
-																																																																																					@ini_set('display_errors',0);
+																																																																																				
 add_filter('show_admin_bar','__return_false');
 add_theme_support('post-thumbnails');
 add_post_type_support( 'featured_Product', 'thumbnail' ); 
 
-function my_custom_post_featured_Product() {
+function my_custom_post_featured_Product() { 
     $labels = array(
         'name'               => _x( 'featured_Product', 'post type general name' ),
         'singular_name'      => _x( 'featured_Product', 'post type singular name' ),
@@ -76,19 +76,18 @@ function featured_products_carousel_function(){
 				.swiper-slide img {display: block;width: 100%;height: 100%;object-fit: cover;}
 		  </style>';																														
 	$featured_products_carousel='';
+	$the_post = '';
 	$args = array( 'post_type' => 'featured_Product', 'posts_per_page' => 4 );
 	$the_query = new WP_Query( $args ); 
-	if ( $the_query->have_posts() ) : ?>
-	<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-	<?php the_content();
+	if ( $the_query->have_posts() ) : 
+	while ( $the_query->have_posts() ) : $the_query->the_post(); 
 	if ( has_post_thumbnail() ) {
-		$post_ids = wp_list_pluck( $the_post->posts, 'ID' );
-		$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_ids[1] ), 'single-post-thumbnail' ); 
+		$image = wp_get_attachment_image_src( get_post_thumbnail_id( ), 'single-post-thumbnail' ); 
 		$featured_products_carousel=$featured_products_carousel.'<div class="swiper-slide"><img src="'. $image[0].'" alt="" ></div>'; 
 	}
 	endwhile;
-	wp_reset_postdata(); ?>
-	<?php else:  ?>
+	wp_reset_postdata(); 
+	else:  ?>
 	<p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
 	<?php endif; 
 	echo'										                                                                                                                                                                                                                         																<head><meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" /></head>																									
